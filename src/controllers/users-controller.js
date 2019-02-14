@@ -47,7 +47,10 @@ exports.delete = async(ctx) =>{
 exports.update = async(ctx) =>{
     const id = ctx.params.id;
     const reqData = ctx.request.body; 
-    if (ctx.auth.id === id || ctx.auth.admin) {
+    if (ctx.auth.id === id) {
+        if( reqData.email){ //email can't be update
+            delete reqData.email
+        }
         let user = await User.findByIdAndUpdate(id, { $set: reqData }, { new: true })
         return ctx.ok({ success: true, user: user.getInfo()})
     } else {

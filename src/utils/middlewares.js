@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const config = require("../config")
+const config = require("../config");
+const {isObjectId} = require('../utils/functions');
 
 exports.isAuthenticate = async (ctx, next) => {
     let req = ctx.request;
@@ -30,5 +31,14 @@ exports.isAdmin = async (ctx, next) =>{
     }else{
         return ctx.send(401, {success:false, message:"PermissionDenied"})
     }
+}
 
+exports.isValidId = async (ctx, next) =>{
+    let id = ctx.params.id
+    if (!isObjectId(id)) {
+        return ctx.badRequest({ success: false, message: "BadId" })
+    }
+    else{
+        await next()
+    }
 }

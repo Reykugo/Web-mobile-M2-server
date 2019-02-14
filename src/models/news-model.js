@@ -9,7 +9,7 @@ const Schema = mongoose.Schema; //Create mongoose Schema
 let schema = new Schema({
     title: { type: String, required: true },
     text: { type: String, required: true },
-    createdby: {type: mongoose.ObjectId, required:true},
+    createdBy: {type: mongoose.ObjectId, required:true},
     createdOn: { type: Date, default: Date.now },
     commentaries: {type:Array, default: []}
 })
